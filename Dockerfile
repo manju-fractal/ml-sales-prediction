@@ -11,6 +11,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy app code
 COPY app.py .
 
+# Copy model.pkl file
+copy model.pkl .
+
 # Expose port 8080
 EXPOSE 8080
 
