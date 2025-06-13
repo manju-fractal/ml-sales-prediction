@@ -18,6 +18,7 @@ steps:
         "deploy", "releases", "create", "release-$_RELEASE_TIMESTAMP",
         "--delivery-pipeline", "manjunathko-ml-sales-prediction-pipeline",
         "--region", "${_REGION}",
-        "--images", "app=${_REGION}-docker.pkg.dev/${PROJECT_ID}/manjunathko-ml-sales-prediction/app:$BUILD_ID"
+        "--images", "app=${_REGION}-docker.pkg.dev/${PROJECT_ID}/manjunathko-ml-sales-prediction/app:$BUILD_ID",
+        "--skaffold-file", "skaffold.yaml",
       ]
   entrypoint: gcloud
