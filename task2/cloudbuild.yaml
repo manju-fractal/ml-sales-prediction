@@ -13,6 +13,7 @@ steps:
          '--publish', '${_REGION}-docker.pkg.dev/${PROJECT_ID}/manjunathko-ml-sales-prediction/app:$BUILD_ID']
   id: Build and package Flask app
 - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  dir: "task2"
   args: 
       [
         "deploy", "releases", "create", "release-$_RELEASE_TIMESTAMP",
