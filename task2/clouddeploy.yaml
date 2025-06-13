@@ -13,7 +13,7 @@ serialPipeline:
           cloudRun:
             automaticTrafficControl: true
         canaryDeployment:
-          percentages: [25, 50, 75]
+          percentages: [25, 75]
           verify: false
  - targetId: qa-env
    profiles: [qa]
