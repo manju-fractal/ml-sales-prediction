@@ -6,6 +6,13 @@ substitutions:
   _RELEASE_TIMESTAMP: "${_TIMESTAMP}"
 
 steps:
+- id: 'generate-timestamp'
+  name: 'alpine'
+  entrypoint: 'sh'
+  args:
+    - '-c'
+    - 'echo "RELEASE_TIMESTAMP=$(date +%Y%m%d%H%M%S)" > /workspace/timestamp.env'
+
 - name: 'gcr.io/k8s-skaffold/pack'
   entrypoint: 'pack'
   args: ['build',
