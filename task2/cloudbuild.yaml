@@ -1,0 +1,20 @@
+substitutions:
+  _REGION: "us-central1"          # example default region
+  _RELEASE_TIMESTAMP: "${_TIMESTAMP}"
+
+steps:
+- name: 'gcr.io/k8s-skaffold/pack'
+  entrypoint: 'pack'
+  args: ['build',
+         '--builder=gcr.io/buildpacks/builder',
+         '--publish', '${_REGION}-docker.pkg.dev/${PROJECT_ID}/manjunathko-ml-sales-prediction/app:$BUILD_ID']
+  id: Build and package Flask app
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  args: 
+      [
+        "deploy", "releases", "create", "release-$_RELEASE_TIMESTAMP",
+        "--delivery-pipeline", "manjunathko-ml-sales-prediction-pipeline",
+        "--region", "${_REGION}",
+        "--images", "app=${_REGION}-docker.pkg.dev/${PROJECT_ID}/manjunathko-ml-sales-prediction/app:$BUILD_ID"
+      ]
+  entrypoint: gcloud
