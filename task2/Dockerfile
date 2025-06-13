@@ -19,4 +19,3 @@ EXPOSE 8080
 
 # Run app using gunicorn
 CMD ["python", "main.py"]
-
