@@ -6,13 +6,6 @@ substitutions:
   _RELEASE_TIMESTAMP: "${_TIMESTAMP}"
 
 steps:
-- id: 'generate-timestamp'
-  name: 'alpine'
-  entrypoint: 'sh'
-  args:
-    - '-c'
-    - 'echo "RELEASE_TIMESTAMP=$(date +%Y%m%d%H%M%S)" > /workspace/timestamp.env'
-
 - name: 'gcr.io/k8s-skaffold/pack'
   entrypoint: 'pack'
   args: ['build',
@@ -23,7 +16,7 @@ steps:
   dir: "task2"
   args: 
       [
-        "deploy", "releases", "create", "release-$_RELEASE_TIMESTAMP",
+        "deploy", "releases", "create", "release-$BUILD_ID",
         "--delivery-pipeline", "manjunathko-ml-sales-prediction-pipeline",
         "--region", "${_REGION}",
         "--images", "app=${_REGION}-docker.pkg.dev/${PROJECT_ID}/manjunathko-ml-sales-prediction/app:$BUILD_ID",
